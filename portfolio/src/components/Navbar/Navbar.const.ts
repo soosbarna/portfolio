@@ -1,0 +1,7 @@
+export const NAVBAR_ITEMS = [
+  'PROJECTS',
+  'PASSIONS',
+  'ABOUT ME',
+  'CONTACT',
+  'BEHIND THE PORTFOLIO',
+]; 
