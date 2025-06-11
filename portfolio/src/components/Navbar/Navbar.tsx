@@ -35,40 +35,60 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
     }
   };
 
+  const menuShift = currentSection === 'home' ? 0 : 40;
+  const transition = { type: 'spring', stiffness: 200, damping: 25 };
+
   return (
     <nav className="navbar">
-      {/* Desktop Menu */}
-      <motion.ul
-        className="links"
-        animate={{
-          x: currentSection === 'projects' ? 300 : 0,
-        }}
-        transition={{ type: 'spring', stiffness: 120, damping: 18 }}
-      >
-        {NAVBAR_ITEMS.map((item) => {
-          const sectionKey = getSectionKey(item);
-          return (
-            <li
-              key={item}
-              className="link"
-              onClick={() => onNavClick(sectionKey)}
-            >
-              {item}
-              {currentSection === sectionKey && (
-                <motion.div
-                  className="activeIndicator"
-                  layoutId="activeSection"
-                  transition={{
-                    type: "spring",
-                    stiffness: 380,
-                    damping: 30
-                  }}
-                />
-              )}
-            </li>
-          );
-        })}
-      </motion.ul>
+      <div className="navbarContent navbarContent--centered">
+        <motion.div
+          className="navbarProfileName"
+          onClick={() => handleNavItemClick('home')}
+          animate={{
+            opacity: currentSection === 'home' ? 0 : 1,
+            x: currentSection === 'home' ? -20 : 0,
+            width: currentSection === 'home' ? 0 : 'auto',
+          }}
+          transition={transition}
+          style={{
+            minWidth: currentSection === 'home' ? 0 : 'max-content',
+            overflow: 'hidden',
+            pointerEvents: currentSection === 'home' ? 'none' : 'auto',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {PROFILE_SURNAME} {PROFILE_NAME}
+        </motion.div>
+        <motion.ul
+          className="links"
+          animate={{ x: menuShift }}
+          transition={transition}
+        >
+          {NAVBAR_ITEMS.map((item) => {
+            const sectionKey = getSectionKey(item);
+            return (
+              <li
+                key={item}
+                className="link"
+                onClick={() => onNavClick(sectionKey)}
+              >
+                {item}
+                {currentSection === sectionKey && (
+                  <motion.div
+                    className="activeIndicator"
+                    layoutId="activeSection"
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 30
+                    }}
+                  />
+                )}
+              </li>
+            );
+          })}
+        </motion.ul>
+      </div>
 
       {/* Mobile Menu Button */}
       <div className="mobileMenuButton" onClick={toggleMobileMenu}>
@@ -132,4 +152,4 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
       </AnimatePresence>
     </nav>
   );
-} 
+}

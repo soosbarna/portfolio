@@ -11,6 +11,23 @@
   position: relative;
 }
 
+.navbarContent,
+.navbarContent--centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  /*gap: 3rem;*/
+}
+
+.navbarLeft {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
 .links {
   list-style: none;
   display: flex;
@@ -22,22 +39,19 @@
   padding: 0;
   color: #111;
   letter-spacing: 0.02em;
+  align-items: center;
 }
 
 .navbarProfileName {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
   font-size: 1.5rem;
   font-weight: 600;
   color: #111;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0;
   transition: all 0.2s ease-in-out;
+  white-space: nowrap;
 }
 
 .navbarProfileName:hover {
@@ -126,24 +140,25 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   margin: 0;
   padding: 0;
+  color: #111;
+  letter-spacing: 0.02em;
   text-align: center;
 }
 
 .mobileLink {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #111;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s;
   position: relative;
+  padding-bottom: 0.25rem;
 }
 
 .mobileActiveIndicator {
   position: absolute;
-  bottom: 0;
+  bottom: -0.5rem;
   left: 0;
   right: 0;
   height: 4px;
@@ -151,17 +166,16 @@
 }
 
 .mobileProfileName {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   color: #111;
-  margin-bottom: 3rem;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
 }
 
 .mobileProfileName:hover {
