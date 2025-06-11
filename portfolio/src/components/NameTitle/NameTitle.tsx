@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { PROFILE_NAME, PROFILE_SURNAME, PROFILE_TITLE } from './NameTitle.const';
-import { nameTitleStyles } from './NameTitle.styles';
+import './NameTitle.css';
 
 export function NameTitle({
   currentSection,
@@ -10,12 +10,13 @@ export function NameTitle({
   onJumpHome?: () => void;
 }) {
   const isProjects = currentSection === 'projects';
+  const isHome = currentSection === 'home';
 
   return (
     <>
       <motion.div
+        className="nameTitleContainer"
         style={{
-          ...nameTitleStyles.container,
           position: isProjects ? 'fixed' : 'static',
           top: isProjects ? 0 : undefined,
           left: isProjects ? 0 : undefined,
@@ -23,19 +24,19 @@ export function NameTitle({
           zIndex: isProjects ? 200 : undefined,
           background: isProjects ? 'white' : undefined,
           padding: isProjects ? '0.5rem 1.5rem' : undefined,
-          display: 'flex',
-          alignItems: 'left',
-          justifyContent: isProjects ? 'flex-start' : 'flex-start',
           flexDirection: isProjects ? 'row' : 'column',
           fontSize: isProjects ? '1.5rem' : '5rem',
           fontWeight: 600,
           cursor: isProjects ? 'pointer' : 'default',
           transition: 'all 0.5s cubic-bezier(.4,2,.6,1)',
+          opacity: isHome ? 1 : 0,
+          scale: isHome ? 1 : 0.8,
         }}
         animate={{
-          scale: isProjects ? 0.7 : 1,
+          scale: isProjects ? 0.7 : isHome ? 1 : 0.8,
           x: 0,
           y: 0,
+          opacity: isHome ? 1 : 0,
         }}
         transition={{ type: 'spring', stiffness: 120, damping: 18 }}
         onClick={isProjects && onJumpHome ? onJumpHome : undefined}
@@ -64,10 +65,16 @@ export function NameTitle({
           {PROFILE_NAME}
         </span>
       </motion.div>
-      <div style={{
-        fontSize: '1.3rem',
-        fontWeight: 800,
-      }}>{PROFILE_TITLE}</div>
+      <motion.div 
+        className="profileTitle"
+        animate={{
+          opacity: isHome ? 1 : 0,
+          y: isHome ? 0 : -20,
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        {PROFILE_TITLE}
+      </motion.div>
     </>
   );
 } 

@@ -1,0 +1,169 @@
+.navbar {
+  width: 100%;
+  height: 2rem;
+  border-bottom: 2px solid #222;
+  background: transparent;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Reddit Sans', Arial, sans-serif;
+  position: relative;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  color: #111;
+  letter-spacing: 0.02em;
+}
+
+.navbarProfileName {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbarProfileName:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .links {
+    display: none;
+  }
+  
+  .navbarProfileName {
+    display: none;
+  }
+}
+
+.link {
+  cursor: pointer;
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #111;
+}
+
+.mobileMenuButton {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  padding: 0;
+  background: transparent;
+  border: none;
+  z-index: 1001;
+}
+
+@media (max-width: 768px) {
+  .mobileMenuButton {
+    display: flex;
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+  }
+}
+
+.hamburgerLine {
+  width: 100%;
+  height: 3px;
+  background-color: #111;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 4rem;
+}
+
+@media (min-width: 769px) {
+  .mobileMenu {
+    display: none;
+  }
+}
+
+.mobileLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.mobileLink {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.mobileActiveIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #111;
+}
+
+.mobileProfileName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 3rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobileProfileName:hover {
+  opacity: 0.8;
+} 
