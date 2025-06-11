@@ -24,7 +24,9 @@ export function NameTitle() {
         {PROFILE_NAME}
       </span>
 
-      {PROFILE_TITLE}
+      <span className="profileTitle">
+        {PROFILE_TITLE}
+      </span>
     </>
   );
 } 

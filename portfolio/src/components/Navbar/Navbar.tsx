@@ -40,7 +40,7 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
 
   return (
     <nav className="navbar">
-      <div className="navbarContent navbarContent--centered">
+      <div className={`navbarContent ${currentSection === 'home' ? 'navbarContent--centered' : 'navbarContent--right'}`}>
         <motion.div
           className="navbarProfileName"
           onClick={() => handleNavItemClick('home')}
