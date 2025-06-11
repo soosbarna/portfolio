@@ -45,17 +45,22 @@ export function HomePage() {
         <Navbar currentSection={currentSection} onNavClick={handleNavClick} />
       </div>
       <div ref={snapContainerRef} style={homePageStyles.snapContainer}>
+        <div style={homePageStyles.gradientBg} />
         <div ref={homeRef} id="home" style={homePageStyles.section}>
           <div style={homePageStyles.bg}>
             <div style={homePageStyles.content}>
               <div style={homePageStyles.content60}>
-                <NameTitle
-                  currentSection={currentSection}
-                  onJumpHome={() => {
-                    homeRef.current?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                />
-                <SkillList />
+                <div style={{ marginBottom: '6rem' }}>
+                  <NameTitle
+                    currentSection={currentSection}
+                    onJumpHome={() => {
+                      homeRef.current?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  />
+                </div>
+                <div style={{ marginBottom: '6rem' }}>
+                  <SkillList />
+                </div>
               </div>
             </div>
           </div>

@@ -1,45 +1,27 @@
 export const skillListStyles = {
+  
   skillsBlock: {
-    maxWidth: 800,
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: '0.5rem',
-  },
-  mainSkills: {
-    display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    gap: '2.2rem',
-    fontSize: '1.25rem',
+    justifyContent: 'space-between',
+    textAlign: 'justify',
+    gap: '20px 40px',
+    marginRight: '20px',
+    fontSize: '1.2rem',
     fontWeight: 900,
-    marginBottom: '0.2rem',
-    color: '#111',
+  },
+
+  mainSkills: {
     opacity: 1,
   },
-  mainSkill: {
-    wordBreak: 'break-word',
-    whiteSpace: 'nowrap',
-  },
+
   secondarySkills: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '1.2rem',
-    fontSize: '1.1rem',
-    color: '#888',
-    fontWeight: 900,
-  },
-  secondarySkill60: {
     opacity: 0.6,
-    fontWeight: 900,
-    wordBreak: 'break-word',
-    whiteSpace: 'nowrap',
   },
-  secondarySkill40: {
+
+  tertiarySkill: {
     opacity: 0.4,
-    fontWeight: 900,
-    wordBreak: 'break-word',
-    whiteSpace: 'nowrap',
   },
+  
 } as const; 

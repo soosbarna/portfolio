@@ -1,32 +1,35 @@
-import { mainSkills, secondarySkills } from './SkillList.const';
+import { primarySkills, secondarySkills, tertiarySkills } from './SkillList.const';
 import { skillListStyles } from './SkillList.styles';
 
-
 export function SkillList() {
+  function renderSkills() {
+    const skills = primarySkills.concat(secondarySkills).concat(tertiarySkills);
+    return skills.map((skill, i) => {
+      let style = {};
+      if (i < primarySkills.length) {
+        style = skillListStyles.mainSkills;
+      } else if (i < primarySkills.length + secondarySkills.length) {
+        style = skillListStyles.secondarySkills;
+      } else {
+        style = skillListStyles.tertiarySkill;
+      }
 
-  function renderMainSkills() {
-    return mainSkills.map((skill) => (
-      <span key={skill} style={skillListStyles.mainSkill}>{skill}</span>
-    ));
-  }
-  
-  function renderSecondarySkills() {
-    return secondarySkills.map((skill, i) => (
-      <span
-        key={skill}
-        style={i < 8 ? skillListStyles.secondarySkill60 : skillListStyles.secondarySkill40}
-      >
-        {skill}
-      </span>
-    ));
+      return (
+        <span
+          key={skill}
+          style={{
+            ...style,
+            marginRight: i === skills.length - 1 ? 'auto' : undefined
+          }}>
+            {skill}
+        </span>
+      );
+    });
   }
 
   return (
-    <section style={{ width: '100%' }}>
-      <div style={skillListStyles.skillsBlock}>
-        <div style={skillListStyles.mainSkills}>{renderMainSkills()}</div>
-        <div style={skillListStyles.secondarySkills}>{renderSecondarySkills()}</div>
-      </div>
-    </section>
+    <div style={skillListStyles.skillsBlock}>
+      {renderSkills()}
+    </div>
   );
-} 
+}

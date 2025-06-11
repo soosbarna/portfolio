@@ -1,6 +1,7 @@
 export const navbarStyles = {
   navbar: {
     width: '100%',
+    height: '2rem',
     borderBottom: '2px solid #222',
     background: 'transparent',
     padding: '0.5rem 0',
