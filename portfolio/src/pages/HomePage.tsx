@@ -75,10 +75,10 @@ export function HomePage() {
               <div style={homePageStyles.content60}>
                 <div style={{ marginBottom: '6rem' }}>
                   <NameTitle
-                    currentSection={currentSection}
-                    onJumpHome={() => {
-                      homeRef.current?.scrollIntoView({ behavior: 'smooth' });
-                    }}
+                    //currentSection={currentSection}
+                    //onJumpHome={() => {
+                      //homeRef.current?.scrollIntoView({ behavior: 'smooth' });
+                    //}}
                   />
                 </div>
                 <div style={{ marginBottom: '6rem' }}>
