@@ -3,11 +3,12 @@ export const homePageStyles = {
     position: 'fixed' as const,
     top: 0,
     left: 0,
-    width: 'calc(100vw - 16px)',
+    //  width: 'calc(100vw - 16px)',
+    width: '100vw',
     zIndex: 100,
     background: 'white',
-    boxSizing: 'border-box' as const,
   },
+
   snapContainer: {
     height: '100vh',
     width: '100vw',
@@ -15,7 +16,6 @@ export const homePageStyles = {
     overflowX: 'hidden' as const,
     scrollSnapType: 'y mandatory' as const,
     scrollBehavior: 'smooth' as const,
-    boxSizing: 'border-box' as const,
   },
   section: {
     height: '100vh',
@@ -27,7 +27,6 @@ export const homePageStyles = {
     flexDirection: 'column' as const,
     justifyContent: 'center',
     alignItems: 'stretch',
-    boxSizing: 'border-box' as const,
   },
   bg: {
     minHeight: '100vh',
@@ -38,9 +37,9 @@ export const homePageStyles = {
     alignItems: 'stretch',
     fontFamily: 'Reddit Sans, Arial, sans-serif',
     paddingTop: 70,
-    boxSizing: 'border-box' as const,
   },
   gradientBg: {
+    willChange: 'transform',  // GPU acceleration
     position: 'fixed',
     top: 0,
     left: 0,
@@ -60,25 +59,15 @@ export const homePageStyles = {
     filter: 'blur(80px)',
     animation: 'moveBackground 20s linear infinite',
     overflow: 'hidden',
+    
   },
   content: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'column' as const,
-    minHeight: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
-    boxSizing: 'border-box' as const,
-    marginTop: 'calc((100vh - 2rem - 600px) / 2)',
-    marginBottom: 'calc((100vh - 2rem - 600px) / 2)',
-  },
-  content60: {
-    width: '60vw',
-    marginLeft: '20vw',
-    marginRight: '20vw',
-    display: 'flex',
-    flexDirection: 'column' as const,
-    alignItems: 'flex-start',
-    boxSizing: 'border-box' as const,
+    //boxSizing: 'border-box' as const,
   },
 
   nameTitle: {
@@ -94,4 +83,22 @@ export const homePageStyles = {
     textDecoration: 'none',
     marginLeft: '20px',
   },
-} as const; 
+} as const;
+
+export const dynamicContentContainer = (widths: { left: string; center: string; right: string }) => ({
+  width: widths.center,
+  marginLeft: widths.left,
+  marginRight: widths.right,
+  display: 'flex',
+  flexDirection: 'column' as const,
+  alignItems: 'flex-start',
+  boxSizing: 'border-box' as const,
+});
+
+export const getBgAnimationStyle = (reduceMotion: boolean) =>
+  reduceMotion
+    ? { animation: 'none' }
+    : { animation: 'moveBackground 20s linear infinite' };
+
+export const getDebugBorderStyle = (debugBorders: boolean, color: string) =>
+  debugBorders ? { border: `1px solid ${color}` } : {}; 

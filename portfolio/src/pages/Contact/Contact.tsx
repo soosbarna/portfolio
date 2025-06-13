@@ -1,19 +1,6 @@
-const sectionStyles = {
-  display: 'flex',
-  flexDirection: 'row' as const,
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
-  width: '100%',
-  margin: '2rem 0',
-  gap: '2rem',
-};
+import { color, motion, px, transform } from "framer-motion";
+import { contactStyles } from "./Contact.style";
 
-const leftColStyles = {
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column' as const,
-  gap: '3rem',
-};
 
 const contactTitleStyles = {
   fontWeight: 700,
@@ -32,19 +19,36 @@ const contactInfoStyles = {
   gap: '1rem',
 };
 
-const contactLinkStyles = {
-  color: '#111',
-  textDecoration: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem',
-  transition: 'opacity 0.2s',
-  ':hover': {
-    opacity: 0.8,
-  },
-};
+
+
+
 
 export function ContactPage() {
+  return (
+    <div style={contactStyles.sectionStyles}>
+      <motion.a 
+        href="#"
+        style={contactStyles.underlinelink}
+        whileHover="hover"
+        initial="rest"
+        animate="rest"
+      >
+        GitHub
+        <motion.span
+          style={contactStyles.underline}
+          variants={{
+            rest: { scaleX: 0 },
+            hover: { scaleX: 1 },
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        />
+      </motion.a>
+    </div>
+  );
+}
+
+
+/*export function ContactPage() {
   return (
     <div style={sectionStyles}>
       <div style={leftColStyles}>
@@ -73,4 +77,11 @@ export function ContactPage() {
       <div style={{ flex: 1 }}></div>
     </div>
   );
-} 
+} */
+
+
+
+
+
+
+

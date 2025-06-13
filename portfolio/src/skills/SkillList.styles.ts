@@ -10,6 +10,7 @@ export const skillListStyles = {
     marginRight: '20px',
     fontSize: '1.2rem',
     fontWeight: 900,
+    marginTop: '8rem',
   },
 
   mainSkills: {

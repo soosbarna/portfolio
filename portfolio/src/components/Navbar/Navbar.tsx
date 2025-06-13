@@ -1,21 +1,24 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { NAVBAR_ITEMS } from './Navbar.const';
-import { useState } from 'react';
 import './Navbar.css';
 import { PROFILE_NAME, PROFILE_SURNAME } from '../NameTitle/NameTitle.const';
+import { navbarStyles } from './Navbar.style';
+import { useToggles } from '../../ToggleContext';
+import { getDebugBorderStyle } from '../../pages/HomePage/HomePage.style';
 
 type Section = 'home' | 'projects' | 'passions' | 'about' | 'contact' | 'behind';
 
-export function Navbar({ currentSection, onNavClick }: { currentSection: Section, onNavClick: (section: Section) => void }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+function withoutPosition<T extends { position?: unknown }>(style: T): Omit<T, 'position'> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { position: _unused, ...rest } = style;
+  return rest;
+}
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+export function Navbar({ currentSection, onNavClick }: { currentSection: Section, onNavClick: (section: Section) => void }) {
+  const { debugBorders } = useToggles();
 
   const handleNavItemClick = (sectionKey: Section) => {
     onNavClick(sectionKey);
-    setIsMobileMenuOpen(false);
   };
 
   const getSectionKey = (item: string): Section => {
@@ -35,34 +38,65 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
     }
   };
 
-  const menuShift = currentSection === 'home' ? 0 : 40;
-  const transition = { type: 'spring', stiffness: 200, damping: 25 };
-
-  return (
-    <nav className="navbar">
-      <div className={`navbarContent ${currentSection === 'home' ? 'navbarContent--centered' : 'navbarContent--right'}`}>
+  const renderNavbarContent = () => {
+    if (currentSection === 'home') {
+      const centeredStyle = withoutPosition({ ...navbarStyles.navbarContent, ...navbarStyles.navbarContentCentered, ...getDebugBorderStyle(debugBorders, 'blue') });
+      return (
         <motion.div
-          className="navbarProfileName"
+          style={centeredStyle}
+        >
+          <motion.ul
+            className="links"
+            style={{
+              ...navbarStyles.navbarMenuItems,
+              ...getDebugBorderStyle(debugBorders, 'green')
+            }}
+          >
+            {NAVBAR_ITEMS.map((item) => {
+              const sectionKey = getSectionKey(item);
+              return (
+                <li
+                  key={item}
+                  className="link"
+                  onClick={() => onNavClick(sectionKey)}
+                >
+                  {item}
+                  {currentSection === sectionKey && (
+                    <motion.div
+                      className="activeIndicator"
+                      layoutId="activeSection"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30
+                      }}
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </motion.ul>
+        </motion.div>
+      );
+    }
+
+    const splitStyle = withoutPosition({ ...navbarStyles.navbarContent, ...navbarStyles.navbarContentSplit, ...getDebugBorderStyle(debugBorders, 'blue') });
+    return (
+      <motion.div
+        style={splitStyle}
+      >
+        <motion.div
+          style={navbarStyles.navbarName}
           onClick={() => handleNavItemClick('home')}
-          animate={{
-            opacity: currentSection === 'home' ? 0 : 1,
-            x: currentSection === 'home' ? -20 : 0,
-            width: currentSection === 'home' ? 0 : 'auto',
-          }}
-          transition={transition}
-          style={{
-            minWidth: currentSection === 'home' ? 0 : 'max-content',
-            overflow: 'hidden',
-            pointerEvents: currentSection === 'home' ? 'none' : 'auto',
-            whiteSpace: 'nowrap',
-          }}
         >
           {PROFILE_SURNAME} {PROFILE_NAME}
         </motion.div>
         <motion.ul
           className="links"
-          animate={{ x: menuShift }}
-          transition={transition}
+          style={{
+            ...navbarStyles.navbarMenuItems,
+            ...getDebugBorderStyle(debugBorders, 'green')
+          }}
         >
           {NAVBAR_ITEMS.map((item) => {
             const sectionKey = getSectionKey(item);
@@ -88,68 +122,13 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
             );
           })}
         </motion.ul>
-      </div>
+      </motion.div>
+    );
+  };
 
-      {/* Mobile Menu Button */}
-      <div className="mobileMenuButton" onClick={toggleMobileMenu}>
-        <div className="hamburgerLine" style={{
-          transform: isMobileMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none'
-        }} />
-        <div className="hamburgerLine" style={{
-          opacity: isMobileMenuOpen ? 0 : 1
-        }} />
-        <div className="hamburgerLine" style={{
-          transform: isMobileMenuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none'
-        }} />
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '-100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '-100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="mobileMenu"
-          >
-            <div 
-              className="mobileProfileName"
-              onClick={() => handleNavItemClick('home')}
-            >
-              <span style={{ borderBottom: '4px solid #111' }}>{PROFILE_SURNAME}</span>
-              <span>{PROFILE_NAME}</span>
-            </div>
-            <ul className="mobileLinks">
-              {NAVBAR_ITEMS.map((item) => {
-                const sectionKey = getSectionKey(item);
-                return (
-                  <motion.li
-                    key={item}
-                    className="mobileLink"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleNavItemClick(sectionKey)}
-                  >
-                    {item}
-                    {currentSection === sectionKey && (
-                      <motion.div
-                        className="mobileActiveIndicator"
-                        layoutId="mobileActiveSection"
-                        transition={{
-                          type: "spring",
-                          stiffness: 380,
-                          damping: 30
-                        }}
-                      />
-                    )}
-                  </motion.li>
-                );
-              })}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  return (
+    <nav style={{ ...navbarStyles.navbar, ...getDebugBorderStyle(debugBorders, 'red') }}>
+      {renderNavbarContent()}
     </nav>
   );
 }
