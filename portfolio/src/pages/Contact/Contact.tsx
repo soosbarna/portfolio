@@ -1,26 +1,5 @@
-import { color, motion, px, transform } from "framer-motion";
+import { motion } from "framer-motion";
 import { contactStyles } from "./Contact.style";
-
-
-const contactTitleStyles = {
-  fontWeight: 700,
-  fontSize: '1.2rem',
-  marginBottom: '0.5rem',
-  textTransform: 'uppercase' as const,
-};
-
-const contactInfoStyles = {
-  fontWeight: 400,
-  fontSize: '1rem',
-  marginBottom: '0.5rem',
-  maxWidth: 400,
-  display: 'flex',
-  flexDirection: 'column' as const,
-  gap: '1rem',
-};
-
-
-
 
 
 export function ContactPage() {
