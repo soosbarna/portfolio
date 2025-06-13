@@ -5,6 +5,7 @@ import { PROFILE_NAME, PROFILE_SURNAME } from '../NameTitle/NameTitle.const';
 import { navbarStyles } from './Navbar.style';
 import { useToggles } from '../../ToggleContext';
 import { getDebugBorderStyle } from '../../pages/HomePage/HomePage.style';
+import { useDynamicLayoutWidths } from '../../globalStyle';
 
 type Section = 'home' | 'projects' | 'passions' | 'about' | 'contact' | 'behind';
 
@@ -16,6 +17,7 @@ function withoutPosition<T extends { position?: unknown }>(style: T): Omit<T, 'p
 
 export function Navbar({ currentSection, onNavClick }: { currentSection: Section, onNavClick: (section: Section) => void }) {
   const { debugBorders } = useToggles();
+  const widths = useDynamicLayoutWidths();
 
   const handleNavItemClick = (sectionKey: Section) => {
     onNavClick(sectionKey);
@@ -39,8 +41,14 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
   };
 
   const renderNavbarContent = () => {
+    const baseContentStyle = {
+      ...navbarStyles.navbarContent,
+      width: widths.center,
+      marginLeft: widths.left,
+      marginRight: widths.right,
+    };
     if (currentSection === 'home') {
-      const centeredStyle = withoutPosition({ ...navbarStyles.navbarContent, ...navbarStyles.navbarContentCentered, ...getDebugBorderStyle(debugBorders, 'blue') });
+      const centeredStyle = withoutPosition({ ...baseContentStyle, ...navbarStyles.navbarContentCentered, ...getDebugBorderStyle(debugBorders, 'blue') });
       return (
         <motion.div
           style={centeredStyle}
@@ -80,16 +88,21 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
       );
     }
 
-    const splitStyle = withoutPosition({ ...navbarStyles.navbarContent, ...navbarStyles.navbarContentSplit, ...getDebugBorderStyle(debugBorders, 'blue') });
+    const splitStyle = withoutPosition({ ...baseContentStyle, ...navbarStyles.navbarContentSplit, ...getDebugBorderStyle(debugBorders, 'blue') });
     return (
-      <motion.div
-        style={splitStyle}
-      >
+      <motion.div style={splitStyle}>
         <motion.div
           style={navbarStyles.navbarName}
+          className="navbarProfileName"
           onClick={() => handleNavItemClick('home')}
+          initial={{ x: 80 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 120, damping: 20 }}
         >
-          {PROFILE_SURNAME} {PROFILE_NAME}
+          <div style={{ ...getDebugBorderStyle(debugBorders, 'green') }}  >
+            {PROFILE_SURNAME} {PROFILE_NAME}
+          </div>
         </motion.div>
         <motion.ul
           className="links"
@@ -97,6 +110,10 @@ export function Navbar({ currentSection, onNavClick }: { currentSection: Section
             ...navbarStyles.navbarMenuItems,
             ...getDebugBorderStyle(debugBorders, 'green')
           }}
+          initial={{ x: -80 }}
+          animate={{ x: 0 }}
+          exit={{ x: 80 }}
+          transition={{ type: 'spring', stiffness: 120, damping: 20 }}
         >
           {NAVBAR_ITEMS.map((item) => {
             const sectionKey = getSectionKey(item);

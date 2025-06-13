@@ -28,7 +28,7 @@ export const navbarStyles = {
 	},
 
 	navbarName: {
-		fontSize: '1.5rem',
+		fontSize: '1.25rem',
 		fontWeight: 600,
 		color: '#111',
 		cursor: 'pointer',

@@ -17,33 +17,9 @@
   position: relative;
   width: 60vw;
   margin: 0 10vw;
-  background: grey;
   border: none;
 }
 
-.navbarContent--centered {
-  justify-content: space-between;
-  justify-content: center;
-}
-
-.navbarContent--right {
-  justify-content: center;
-  justify-content: space-between;
-}
-
-
-
-
-
-
-
-
-/*
-.navbarLeft {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}*/
 
 .links {
   display: flex;
@@ -58,7 +34,7 @@
   letter-spacing: 0.02em;
 }
 
-.link {
+.link, .navbarProfileName {
   position: relative;
   cursor: pointer;
   font-size: 1.25rem;
@@ -68,8 +44,30 @@
   padding-bottom: 0px;
 }
 
-.link:hover {
-  color: #000;
+.link:hover::after, .navbarProfileName:hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: #888;
+  border-radius: 2px;
+  transition: background 0.2s, width 0.2s;
+  width: 100%;
+}
+
+.link::after, .navbarProfileName::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: transparent;
+  border-radius: 2px;
+  transition: background 0.2s, width 0.2s;
+  width: 100%;
 }
 
 .activeIndicator {
@@ -83,19 +81,17 @@
 }
 
 .navbarProfileName {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #111;
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.5rem 0.5rem 0;
+  margin: 0;
+  padding: 0;
+  /*padding: 0.5rem 0.5rem 0.5rem 0;*/
   /*transition: all 0.2s ease-in-out;*/
   white-space: nowrap;
-}
-
-.navbarProfileName:hover {
-  opacity: 0.2;
 }
 
 @media (max-width: 768px) {
